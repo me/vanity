@@ -24,6 +24,7 @@ module Vanity
       class VanityMetric < VanityRecord
         self.table_name = :vanity_metrics
         has_many :vanity_metric_values
+        attr_protected
 
         def self.retrieve(metric)
           find_or_create_by_metric_id(metric.to_s)
@@ -34,12 +35,14 @@ module Vanity
       class VanityMetricValue < VanityRecord
         self.table_name = :vanity_metric_values
         belongs_to :vanity_metric
+        attr_protected
       end
 
       # Experiment model
       class VanityExperiment < VanityRecord
         self.table_name = :vanity_experiments
         has_many :vanity_conversions, :dependent => :destroy
+        attr_protected
 
         # Finds or creates the experiment
         def self.retrieve(experiment)
@@ -56,11 +59,13 @@ module Vanity
       class VanityConversion < VanityRecord
         self.table_name = :vanity_conversions
         belongs_to :vanity_experiment
+        attr_protected
       end
 
       # Participant model
       class VanityParticipant < VanityRecord
         self.table_name = :vanity_participants
+        attr_protected
 
         # Finds the participant by experiment and identity. If
         # create is true then it will create the participant
